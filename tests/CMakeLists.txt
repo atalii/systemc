@@ -29,6 +29,8 @@ endif()
 
 cmake_minimum_required(VERSION 3.12...3.31) # FindPython3
 
+set(CMAKE_CTEST_ARGUMENTS "--output-on-failure")
+
 set(TEST_CATEGORY tests)
 include(SystemCTesting)
 
