@@ -14,6 +14,7 @@ RUN apt-get update && \
     g++ \
     clang \
     gcovr \
+    libgtest-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the current directory contents into the container at /app
