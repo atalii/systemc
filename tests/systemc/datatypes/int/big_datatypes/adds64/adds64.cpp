@@ -176,8 +176,18 @@ int sc_main(int argc, char* argv[])
     for ( int i = 0; i < 10000; ++i ) {
 	uint64 a = rng.rand();
 	a = (a << 32) | rng.rand();
+
+	// Pick our second operand such that addition won't overflow. (This is
+	// undefined behavior on sc_int's, deriving from the underlying
+	// int_type representation.)
+	int64_t sa = a;
+	uint64_t min = sa < 0 ? INT64_MIN - sa : INT64_MIN;
+	uint64_t max = sa > 0 ? INT64_MAX - sa : INT64_MAX;
+	uint64_t range = max - min;
+
 	uint64 b = rng.rand();
 	b = (b << 32) | rng.rand();
+	b = (b % range) + min;
 	x.test( a, b );
     }
 
